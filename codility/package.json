@@ -1,0 +1,15 @@
+{
+  "name": "lesson-1-iterations",
+  "version": "1.0.0",
+  "description": "Solution for Codility BinaryGap challenge",
+  "repository": "github:matiisi/challenges",
+  "main": "binaryGap.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "matiisi",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "jest": "^24.9.0"
+  }
+}
