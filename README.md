@@ -37,4 +37,5 @@
 ## Challenges from
 
 - [Advent of Code](https://adventofcode.com/)
+- [Codewars](https://www.codewars.com/)
 - [Codility](https://app.codility.com/programmers/challenges/)
