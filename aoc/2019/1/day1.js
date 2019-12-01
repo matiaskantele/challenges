@@ -2,7 +2,7 @@
 const fuelRequirementForMass = mass => Math.floor(mass / 3) - 2;
 
 const sumOfFuelRequirements = input =>
-  input.map(m => fuelRequirementForMass(m)).reduce((acc, f) => acc + f);
+  input.reduce((acc, m) => acc + fuelRequirementForMass(m), 0);
 
 // -- Part Two ---
 const calculateTotalFuelForMass = mass => {
@@ -12,7 +12,7 @@ const calculateTotalFuelForMass = mass => {
 };
 
 const sumOfFuelRequirementsWithFuelForFuel = input =>
-  input.map(m => calculateTotalFuelForMass(m)).reduce((acc, f) => acc + f);
+  input.reduce((acc, m) => acc + calculateTotalFuelForMass(m), 0);
 
 module.exports = {
   fuelRequirementForMass,
