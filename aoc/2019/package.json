@@ -1,0 +1,15 @@
+{
+  "name": "aoc2019",
+  "version": "1.0.0",
+  "description": "Solutions to Advent of Code 2019 puzzles",
+  "type": "module",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": "github.com:matiisi/challenges",
+  "author": "matiisi",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "jest": "^24.9.0"
+  }
+}
