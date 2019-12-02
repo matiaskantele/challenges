@@ -13,7 +13,7 @@ const input = fs
   .map(s => s.replace(/\r$/, ""))
   .filter(s => s.length > 0);
 
-describe("Fuel requirements", () => {
+describe("My solution", () => {
   it("should be calculated correctly based on the mass of the module", () => {
     expect(fuelRequirementForMass(12)).toBe(2);
     expect(fuelRequirementForMass(14)).toBe(2);
