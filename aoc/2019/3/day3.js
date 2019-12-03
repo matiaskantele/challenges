@@ -1,71 +1,96 @@
 // https://adventofcode.com/2019/day/3
 
 // --- Day 3: Crossed Wires ---
-const visitedLocations = wire => {
-  const locations = [];
-  const moves = wire.split(",");
-  let steps = 0;
-  const currentLocation = { x: 0, y: 0 };
-  moves.map(m => {
-    const direction = m.charAt(0);
-    const distance = m.substring(1);
+const generateCoordinates = moves => {
+  const coordinates = [];
+  const coordinate = { x: 0, y: 0 };
+  let steps = 0; // for part two
+  moves.map(move => {
+    const direction = move.charAt(0);
+    const distance = move.substring(1);
     for (let i = 0; i < distance; i++) {
       switch (direction) {
         case "U":
-          currentLocation.y += 1;
+          coordinate.y += 1;
           break;
         case "R":
-          currentLocation.x += 1;
+          coordinate.x += 1;
           break;
         case "D":
-          currentLocation.y -= 1;
+          coordinate.y -= 1;
           break;
         case "L":
-          currentLocation.x -= 1;
+          coordinate.x -= 1;
           break;
       }
       steps += 1;
-      locations.push({ ...currentLocation, steps: steps });
+      coordinates.push({ ...coordinate, steps: steps });
     }
   });
-  return locations;
+  return coordinates;
 };
 
-const findIntersections = (wireOnePath, wireTwoPath) => {
-  return wireOnePath.filter(w1Coords => {
-    return wireTwoPath.find(
-      w2Coords => w1Coords.x === w2Coords.x && w1Coords.y === w2Coords.y
+const asListOfCoordinates = wire => {
+  const moves = wire.split(",");
+  return generateCoordinates(moves);
+};
+
+const findIntersections = (firstWirePoints, secondWirePoints) => {
+  return firstWirePoints.filter(fwPoint => {
+    return secondWirePoints.find(
+      swPoint => fwPoint.x === swPoint.x && fwPoint.y === swPoint.y
     );
   });
 };
 
-const calculateManhattanDistance = intersection =>
-  Math.abs(intersection.x) + Math.abs(intersection.y);
+const calculateManhattanDistance = coordinate =>
+  Math.abs(coordinate.x) + Math.abs(coordinate.y);
 
 const findClosest = intersections => {
-  let closestDistanceFound = 0;
+  let closest = 0;
   let closestIntersection = {};
-  intersections.map(i => {
-    const distance = calculateManhattanDistance(i);
-    if (!closestDistanceFound || distance < closestDistanceFound) {
-      closestDistanceFound = distance;
-      closestIntersection = { ...i };
+  intersections.map(coordinates => {
+    const distance = calculateManhattanDistance(coordinates);
+    if (!closest || distance < closest) {
+      closest = distance;
+      closestIntersection = { ...coordinates };
     }
   });
   return closestIntersection;
 };
 
-const findClosestIntersection = (wireOne, wireTwo) => {
-  const wireOnePath = visitedLocations(wireOne);
-  const wireTwoPath = visitedLocations(wireTwo);
-  const intersections = findIntersections(wireOnePath, wireTwoPath);
+const findClosestIntersection = (firstWire, secondWire) => {
+  const firstWirePoints = asListOfCoordinates(firstWire);
+  const secondWirePoints = asListOfCoordinates(secondWire);
+  const intersections = findIntersections(firstWirePoints, secondWirePoints);
   const closestIntersection = findClosest(intersections);
-  const distance = calculateManhattanDistance(closestIntersection);
-  return distance;
+  return calculateManhattanDistance(closestIntersection);
 };
 
 // --- Part Two ---
+const findFewestCombinedSteps = (firstWirePoints, secondWirePoints) => {
+  let fewestSteps = 0;
+  firstWirePoints.map(fwPoint => {
+    const intersection = secondWirePoints.find(
+      swPoint => fwPoint.x === swPoint.x && fwPoint.y === swPoint.y
+    );
+    if (intersection) {
+      const steps = fwPoint.steps + intersection.steps;
+      if (!fewestSteps || steps < fewestSteps) {
+        fewestSteps = steps;
+      }
+    }
+  });
+  return fewestSteps;
+};
+
+const findFewestStepsToIntersection = (firstWire, secondWire) => {
+  const firstWirePoints = asListOfCoordinates(firstWire);
+  const secondWirePoints = asListOfCoordinates(secondWire);
+  return findFewestCombinedSteps(firstWirePoints, secondWirePoints);
+};
 
 module.exports = {
   findClosestIntersection,
+  findFewestStepsToIntersection,
 };
