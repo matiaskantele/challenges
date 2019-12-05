@@ -1,6 +1,6 @@
 // https://adventofcode.com/2019/day/3
-
 // --- Day 3: Crossed Wires ---
+
 const generateCoordinates = moves => {
   const coordinates = [];
   const coordinate = { x: 0, y: 0 };

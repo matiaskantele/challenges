@@ -1,6 +1,6 @@
 // https://adventofcode.com/2019/day/2
-
 // --- Day 2: 1202 Program Alarm ---
+
 const runIntcode = input => {
   const array = input.split(",").map(c => parseInt(c));
   for (let i = 0; i < array.length; i += 4) {
